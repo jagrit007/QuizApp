@@ -40,11 +40,11 @@
                     <!-- Include the user dropdown here -->
                     <div class="user-dropdown">
                         <%-- Check if the user is logged in --%>
-                        <% if (session.getAttribute("uname") != null) { %>
+                        <% if (session.getAttribute("uname") == null) { %>
                             <i style="margin-left: 15px;" class="fas fa-user"></i>
                             <span style="margin-right: 5px"><%= session.getAttribute("uname") %></span>
                             <div class="user-dropdown-content">
-                                <a style="background-color: #001f3f;" href="#">Log Out</a>
+                                <a style="background-color: #001f3f;" href="/QuizApp/logout.jsp">Log Out</a>
                             </div>
                         <% } %>
                     </div>
