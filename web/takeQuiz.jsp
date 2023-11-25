@@ -175,28 +175,30 @@
 
         <!-- Retrieve the QuestionDto object from the session -->
         <%
-            QuestionDto questionDto = (QuestionDto) session.getAttribute("quizjagrittttt");
-            if (questionDto != null) {
-                // Iterate through the questions and display them
-                int questionIndex = 1;
-                for (String option : questionDto.getOption()) {
-        %>
-                    <!-- Quiz Question -->
-                    <div class="quiz-question">
-                        Question <%= questionIndex %>: <%= questionDto.getQuestionTitle() %>
-                    </div>
+    QuestionDto questionDto = (QuestionDto) session.getAttribute("quizjagrittttt");
+    if (questionDto != null) {
+        // Iterate through the questions and display them
+        int questionIndex = 1;
+        String[] options = questionDto.getOption();
+        for (int i = 0; i < options.length; i++) {
+%>
+            <!-- Quiz Question -->
+            <div class="quiz-question">
+                Question <%= questionIndex %>: <%= questionDto.getQuestionTitle() %>
+            </div>
 
-                    <!-- Quiz Options -->
-                    <div class="quiz-option" onclick="selectOption(this, <%= option.index %>)"><%= option %></div>
-        <%
-                    questionIndex++;
-                }
-        %>
-                <!-- Save Button -->
-                <button class="btn btn-primary quiz-save" onclick="saveResponse()">Save Response</button>
-        <%
-            }
-        %>
+            <!-- Quiz Options -->
+            <div class="quiz-option" onclick="selectOption(this, <%= i %>)"><%= options[i] %></div>
+<%
+            questionIndex++;
+        }
+%>
+        <!-- Save Button -->
+        <button class="btn btn-primary quiz-save" onclick="saveResponse()">Save Response</button>
+<%
+    }
+%>
+
 
         <!-- Quiz Submit and Exit Buttons -->
         <div class="quiz-actions">

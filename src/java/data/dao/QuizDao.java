@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.Base64;
 import java.util.UUID;
 import java.uitl.*;
+import java.util.ArrayList;
 
 
 
@@ -30,7 +31,7 @@ public class QuizDao {
             ArrayList<QuizDetailsDto> dtoList = new ArrayList<QuizDetailsDto>();
 
             while(rs.next()){
-                dtoList.add(new QuizDetailsDto(rs.getString("id"),rs.getString("title"),rs.getLong("timeLimit")););
+                dtoList.add(new QuizDetailsDto(rs.getString("id"),rs.getString("title"),rs.getLong("time_limit")));
             }
 
             return dtoList;
@@ -40,7 +41,7 @@ public class QuizDao {
         }
     }
 
-    public ArrayList<QuestionDto> getQuizById(QuizDetailsDto dto){
+    public ArrayList<QuestionDto> getQuizById(QuizDetailsDto dto) throws SQLException{
         try{
             PreparedStatement ps = connection.prepareStatement("select * from question where quiz_id = ?");
             ps.setString(1,dto.quizId);
@@ -49,12 +50,12 @@ public class QuizDao {
             ArrayList<QuestionDto> dtoList = new ArrayList<>();
 
             while(rs.next()){
-                dtoList.add(new QuestionDto(rs.getString("id"),rs.getString("title"),rs.getString("option_1"),rs.getString("option_2"),rs.getString("option_3"),rs.getString("option_4"),rs.getInt("correct"),rs.getString("quiz_id")););
+                dtoList.add(new QuestionDto(rs.getString("id"),rs.getString("title"),rs.getString("option_1"),rs.getString("option_2"),rs.getString("option_3"),rs.getString("option_4"),rs.getInt("correct"),rs.getString("quiz_id")));
             }  
 
             return dtoList;       
             
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
