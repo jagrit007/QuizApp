@@ -17,7 +17,7 @@
 
 
     <!-- Hero Section -->
-    <div class="jumbotron text-center ml-5 mr-5 mt-2">
+    <div class="jumbotron text-center ml-5 mr-5 mt-5">
         <h1 class="display-4">Welcome to the Quiz App!</h1>
         <p class="lead">Test your knowledge with our quizzes. Are you ready?</p>
         <a class="btn btn-primary btn-lg" href="quiz" role="button">Get Started</a>
