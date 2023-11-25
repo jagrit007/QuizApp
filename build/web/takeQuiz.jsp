@@ -1,9 +1,13 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Quiz App - Quiz Page</title>
+    <title>Quiz App - Take Quiz</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -27,23 +31,35 @@
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .quiz-question {
             font-weight: bold;
             font-size: 20px;
             margin-bottom: 15px;
+            text-align: center;
         }
 
         .quiz-option {
-            background-color: #007bff;
+            background-color: #007bff; /* Different color */
             color: #ffffff;
             border: 1px solid #007bff;
             border-radius: 5px;
-            padding: 15px;
+            padding: 10px; /* Adjusted padding */
             margin-bottom: 10px;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
+            text-align: center;
+            width: 80%; /* Adjusted width */
+            margin-left: auto; /* Center the option */
+            margin-right: auto; /* Center the option */
+            font-size: 16px; /* Increased font size */
+        }
+
+        .quiz-option.selected {
+            background-color: #28a745;
+            border-color: #28a745;
         }
 
         .quiz-option:hover {
@@ -59,10 +75,24 @@
             font-weight: bold;
             color: #007bff;
             margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .quiz-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
         }
 
         .quiz-submit,
-        .quiz-exit {
+        .quiz-exit,
+        .quiz-save {
             padding: 15px 30px;
             border-radius: 5px;
             font-size: 16px;
@@ -70,11 +100,24 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
+        .quiz-save {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            margin: 20px auto; /* Center the button */
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .quiz-save:hover {
+            background-color: #0056b3;
+        }
+
         .quiz-submit {
             background-color: #28a745;
             color: #ffffff;
             border: none;
-            margin-bottom: 10px;
+            margin-right: 10px;
         }
 
         .quiz-submit:hover {
@@ -97,7 +140,7 @@
     <!-- Quiz Container -->
     <div class="container quiz-container">
         <!-- Quiz Title -->
-        <div class="quiz-title text-center">
+        <div class="quiz-title">
             <h2>General Knowledge Quiz</h2>
         </div>
 
@@ -107,8 +150,14 @@
         </div>
 
         <!-- Quiz Counter -->
-        <div class="quiz-counter text-right">
-            Time Remaining: <span id="timer">60</span> seconds
+        <div class="quiz-counter" id="timerDisplay">
+            Time Remaining: <span id="minutes">15</span> minutes <span id="seconds">00</span> seconds
+        </div>
+
+        <!-- Quiz Navigation Buttons -->
+        <div class="quiz-navigation">
+            <button class="btn btn-primary" onclick="previousQuestion()">Previous</button>
+            <button class="btn btn-primary" onclick="nextQuestion()">Next</button>
         </div>
 
         <!-- Quiz Question -->
@@ -117,14 +166,19 @@
         </div>
 
         <!-- Quiz Options -->
-        <div class="quiz-option" onclick="checkAnswer(this)">A. Paris</div>
-        <div class="quiz-option" onclick="checkAnswer(this)">B. London</div>
-        <div class="quiz-option" onclick="checkAnswer(this)">C. Berlin</div>
-        <div class="quiz-option" onclick="checkAnswer(this)">D. Rome</div>
+        <div class="quiz-option" onclick="selectOption(this, 1)">A. Paris</div>
+        <div class="quiz-option" onclick="selectOption(this, 2)">B. London</div>
+        <div class="quiz-option" onclick="selectOption(this, 3)">C. Berlin</div>
+        <div class="quiz-option" onclick="selectOption(this, 4)">D. Rome</div>
+
+        <!-- Save Button -->
+        <button class="btn btn-primary quiz-save" onclick="saveResponse()">Save Response</button>
 
         <!-- Quiz Submit and Exit Buttons -->
-        <button class="btn btn-success btn-block quiz-submit" onclick="submitQuiz()">Submit</button>
-        <button class="btn btn-danger btn-block quiz-exit" onclick="exitQuiz()">Exit Quiz</button>
+        <div class="quiz-actions">
+            <button class="btn btn-success quiz-submit" onclick="submitQuiz()">Submit Quiz</button>
+            <button class="btn btn-danger quiz-exit" onclick="exitQuiz()">Exit Quiz</button>
+        </div>
     </div>
 
     <!-- Bootstrap JS and dependencies (Popper.js and jQuery) -->
@@ -135,32 +189,63 @@
     <!-- Custom JavaScript -->
     <script>
         // Timer
-        var timer = 60;
+        var timer = 900; // 15 minutes
         var timerInterval = setInterval(function () {
             timer--;
-            document.getElementById('timer').textContent = timer;
+            var minutes = Math.floor(timer / 60);
+            var seconds = timer % 60;
+            document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
+
             if (timer <= 0) {
                 clearInterval(timerInterval);
-                alert('Time is up!');
+                submitQuiz(); // Automatically submit quiz when time is up
             }
         }, 1000);
 
-        // Function to check the selected answer
-        function checkAnswer(option) {
-            // You can add your logic here to check the selected answer
-            // For example, highlight the correct answer or move to the next question
+        // Map to store selected options for each question
+        var selectedOptions = new Map();
 
-            // For demonstration purposes, let's change the background color of the selected option
-            option.style.backgroundColor = '#28a745';
-            option.style.borderColor = '#28a745';
-            option.style.color = '#ffffff';
+        // Function to select an option
+        function selectOption(option, index) {
+            // Remove 'selected' class from all options
+            var allOptions = document.querySelectorAll('.quiz-option');
+            allOptions.forEach(function (opt) {
+                opt.classList.remove('selected');
+            });
+
+            // Add 'selected' class to the clicked option
+            option.classList.add('selected');
+            selectedOptions.set(questionNumber, index);
+            console.log('Selected option:', index);
+        }
+
+        // Function to save the response
+        function saveResponse() {
+            // You can add your logic here to save the response
+            alert('Response saved!');
+        }
+
+        // Function to navigate to the previous question
+        function previousQuestion() {
+            // You can add your logic here to navigate to the previous question
+            alert('Navigating to the previous question.');
+        }
+
+        // Function to navigate to the next question
+        function nextQuestion() {
+            // You can add your logic here to navigate to the next question
+            alert('Navigating to the next question.');
         }
 
         // Function to submit the quiz
         function submitQuiz() {
-            // You can add your logic here to calculate the quiz score or navigate to the next question
+            // You can add your logic here to submit the quiz
             alert('Quiz submitted!');
             clearInterval(timerInterval);
+
+            // Submit saved responses
+            console.log('Saved responses:', selectedOptions);
         }
 
         // Function to exit the quiz
