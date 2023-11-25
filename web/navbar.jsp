@@ -34,10 +34,9 @@
                     <!-- Include the user dropdown here -->
                     <div class="user-dropdown">
                         <%-- Check if the user is logged in --%>
-                        <% if (session.getAttribute("username") != null) { %>
-                            <span><%= session.getAttribute("username") %></span>
+                        <% if (session.getAttribute("uname") != null) { %>
+                            <span><%= session.getAttribute("uname") %></span>
                             <div class="user-dropdown-content">
-                                <a href="#">Profile</a>
                                 <a href="#">Log Out</a>
                             </div>
                         <% } %>
