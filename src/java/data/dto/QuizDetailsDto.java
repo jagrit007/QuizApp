@@ -20,7 +20,7 @@ public class QuizDetailsDto {
     return qTitle;
   }
 
-  public String getTimeLimit() {
+  public long getTimeLimit() {
     return timeLimit;
   }
 }

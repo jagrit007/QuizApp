@@ -14,7 +14,7 @@ public class QuestionDto {
   public QuestionDto(String questionId, String questionTitle, String option1, String option2, String option3, String option4,int correctOption, String quizId) {
     this.quizId = quizId;
     this.questionId = questionId;
-    this.questionTitle = qTitle;
+    this.questionTitle = questionTitle;
     this.option1 = option1;
     this.option2 = option2;
     this.option3 = option3;
