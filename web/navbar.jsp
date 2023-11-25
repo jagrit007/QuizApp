@@ -40,7 +40,7 @@
                     <!-- Include the user dropdown here -->
                     <div class="user-dropdown">
                         <%-- Check if the user is logged in --%>
-                        <% if (session.getAttribute("uname") == null) { %>
+                        <% if (session.getAttribute("uname") != null) { %>
                             <i style="margin-left: 15px;" class="fas fa-user"></i>
                             <span style="margin-right: 5px"><%= session.getAttribute("uname") %></span>
                             <div class="user-dropdown-content">

@@ -1,7 +1,20 @@
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="data.dto.QuestionDto" %>
+<%@ page import="java.util.List" %>
+<%! List<QuestionDto> questionList = new ArrayList<>(); %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
+
+<!-- Add your question DTO objects to the questionList -->
+<%
+    // Example questions, replace with your actual data
+    questionList.add(new QuestionDto("1", "What is the capital of France?", "Paris", "London", "Berlin", "Rome", 1, "quiz1"));
+    questionList.add(new QuestionDto("2", "What is the capital of Germany?", "Paris", "London", "Berlin", "Rome", 3, "quiz1"));
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,19 +173,30 @@
             <button class="btn btn-primary" onclick="nextQuestion()">Next</button>
         </div>
 
-        <!-- Quiz Question -->
-        <div class="quiz-question">
-            Question 1: What is the capital of France?
-        </div>
+        <!-- Retrieve the QuestionDto object from the session -->
+        <%
+            QuestionDto questionDto = (QuestionDto) session.getAttribute("quizjagrittttt");
+            if (questionDto != null) {
+                // Iterate through the questions and display them
+                int questionIndex = 1;
+                for (String option : questionDto.getOption()) {
+        %>
+                    <!-- Quiz Question -->
+                    <div class="quiz-question">
+                        Question <%= questionIndex %>: <%= questionDto.getQuestionTitle() %>
+                    </div>
 
-        <!-- Quiz Options -->
-        <div class="quiz-option" onclick="selectOption(this, 1)">A. Paris</div>
-        <div class="quiz-option" onclick="selectOption(this, 2)">B. London</div>
-        <div class="quiz-option" onclick="selectOption(this, 3)">C. Berlin</div>
-        <div class="quiz-option" onclick="selectOption(this, 4)">D. Rome</div>
-
-        <!-- Save Button -->
-        <button class="btn btn-primary quiz-save" onclick="saveResponse()">Save Response</button>
+                    <!-- Quiz Options -->
+                    <div class="quiz-option" onclick="selectOption(this, <%= option.index %>)"><%= option %></div>
+        <%
+                    questionIndex++;
+                }
+        %>
+                <!-- Save Button -->
+                <button class="btn btn-primary quiz-save" onclick="saveResponse()">Save Response</button>
+        <%
+            }
+        %>
 
         <!-- Quiz Submit and Exit Buttons -->
         <div class="quiz-actions">
