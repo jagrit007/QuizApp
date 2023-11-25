@@ -89,16 +89,16 @@
             </div>
         <% } %>
 
-        <form>
+        <form action="AuthServlet" method="post">
             <div class="form-group">
                 <label for="username">Email</label>
-                <input type="text" name="email" class="form-control" placeholder="Enter your email" required>
+                <input type="text" id="username" name="email" class="form-control" placeholder="Enter your email" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
-            </div>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+            </div>
             
             <input style="display: none;" type="text" name="auth-request" value="0">
 

@@ -89,21 +89,21 @@
             </div>
         <% } %>
 
-        <form>
+        <form action="AuthServlet" method="post">
             <div class="form-group">
-                <label for="fullname">Full Name:</label>
-                <input type="text" name="name" class="form-control" placeholder="Enter your full name" required>
+                <label for="name">Full Name:</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Enter your full name" required>
             </div>
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" name="password" class="form-control" placeholder="Choose a password" required>
-            </div>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Choose a password" required>
+            </div>
             <input style="display: none;" type="text" name="auth-request" value="1">
 
             <button type="submit" class="btn btn-primary btn-block signup-btn">Sign Up</button>
