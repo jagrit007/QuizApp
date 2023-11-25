@@ -11,8 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.UUID;
-import java.uitl.*;
-import java.util.ArrayList;
+import java.util.*;
+//import java.util.ArrayList;
 
 
 
@@ -35,7 +35,7 @@ public class QuizDao {
             }
 
             return dtoList;
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -44,7 +44,7 @@ public class QuizDao {
     public ArrayList<QuestionDto> getQuizById(QuizDetailsDto dto) throws SQLException{
         try{
             PreparedStatement ps = connection.prepareStatement("select * from question where quiz_id = ?");
-            ps.setString(1,dto.quizId);
+            ps.setString(1,dto.getQuizId());
 
             ResultSet rs = ps.executeQuery();
             ArrayList<QuestionDto> dtoList = new ArrayList<>();
