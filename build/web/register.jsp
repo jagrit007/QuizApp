@@ -72,24 +72,25 @@
     <!-- Sign Up Container -->
     <div class="signup-container">
         <h2 class="signup-title">Sign Up</h2>
-        <form action="AuthServlet" method="post">
+        <form>
             <div class="form-group">
                 <label for="fullname">Full Name:</label>
-                <input type="text" name="name" id="fullname" class="form-control" placeholder="Enter your full name" required>
+                <input type="text" name="name" class="form-control" placeholder="Enter your full name" required>
             </div>
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
             </div>
 
 <!--            <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" class="form-control" placeholder="Choose a username" required>
             </div>-->
+
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Choose a password" required>
+                <input type="password" name="password" class="form-control" placeholder="Choose a password" required>
             </div>
 
             <button type="submit" class="btn btn-primary btn-block signup-btn">Sign Up</button>

@@ -81,6 +81,7 @@
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
             </div>
 
             <button type="submit" class="btn btn-primary btn-block login-btn">Login</button>

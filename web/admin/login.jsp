@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sign Up - Quiz App</title>
+    <title>Admin Login</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="style.css">
     <style>
         body {
             background-color: #f8f9fa;
@@ -19,7 +18,7 @@
             margin: 0;
         }
 
-        .signup-container {
+        .login-container {
             max-width: 400px;
             width: 100%;
             padding: 20px;
@@ -28,7 +27,7 @@
             border-radius: 10px;
         }
 
-        .signup-title {
+        .login-title {
             text-align: center;
             color: #007bff;
             font-size: 24px;
@@ -51,7 +50,7 @@
             height: 40px;
         }
 
-        .signup-btn {
+        .login-btn {
             background-color: #007bff;
             color: #ffffff;
             border: none;
@@ -62,33 +61,28 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        .signup-btn:hover {
+        .login-btn:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-
-    <!-- Sign Up Container -->
-    <div class="signup-container">
-        <h2 class="signup-title">Sign Up</h2>
-        <form action="AuthServlet" method="post">
+    <%@ include file = "../navbar.jsp" %>
+    <!-- Login Container -->
+    <div class="login-container">
+        <h2 class="login-title">Admin Login</h2>
+        <form>
             <div class="form-group">
-                <label for="fullname">Full Name:</label>
-                <input type="text" name="name" id="fullname" class="form-control" placeholder="Enter your full name" required>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+                <label for="username">Username:</label>
+                <input type="text" id="username" class="form-control" placeholder="Enter your username" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Choose a password" required>
+                <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block signup-btn">Sign Up</button>
+            <button type="submit" class="btn btn-primary btn-block login-btn">Login</button>
         </form>
     </div>
 
