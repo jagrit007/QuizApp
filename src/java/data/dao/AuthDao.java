@@ -1,5 +1,6 @@
 package data.dao;
 
+import data.dto.User;
 import data.dto.UserLoginDto;
 import data.dto.UserSignupDto;
 
@@ -18,30 +19,42 @@ public class AuthDao {
         this.connection = connection;
     }
 
-    public boolean signup(UserSignupDto dto) {
+    public User register(UserSignupDto dto) {
         try {
+            String uid = UUID.randomUUID().toString();
             PreparedStatement ps = connection.prepareStatement("insert into quiz_user values(?, ?, ?, ?)");
-            ps.setString(1, UUID.randomUUID().toString());
+            ps.setString(1, uid);
             ps.setString(2, dto.getName());
             ps.setString(3, dto.getEmail());
             ps.setString(4, hashPassword(dto.getPassword()));
-            return ps.executeUpdate() > 0;
+            if(ps.executeUpdate() > 0) {
+                return new User(uid, dto.getName(), dto.getEmail());
+            } else return null;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
-    public String login(UserLoginDto dto) {
+    public User login(UserLoginDto dto) {
         try {
-            PreparedStatement ps = connection.prepareStatement("select id from quiz_user where email = ? AND password = ?");
+            PreparedStatement ps = connection.prepareStatement("select * from quiz_user where email = ? AND password = ?");
             ps.setString(1, dto.getEmail());
             ps.setString(2, hashPassword(dto.getPassword()));
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                return rs.getString("id");
-            } else return null;
+                System.out.println("login success");
+                return new User(
+                        rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getString("email")
+                );
+            } else {
+                System.out.println("login wrong");
+                return null;
+            }
         } catch (SQLException e) {
+            System.out.println("login failed");
             e.printStackTrace();
             return null;
         }

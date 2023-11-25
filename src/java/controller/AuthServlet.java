@@ -9,7 +9,9 @@ import java.io.PrintWriter;
 
 import data.QuizDatabase;
 import data.dao.AuthDao;
+import data.dto.User;
 import data.dto.UserLoginDto;
+import data.dto.UserSignupDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,18 +26,61 @@ public class AuthServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            AuthDao dao = new AuthDao(QuizDatabase.get());
-            String userId = dao.login(
-                new UserLoginDto(
-                    request.getParameter("email"),
-                    request.getParameter("password")
-                )
-            );
-            session.setAttribute("uid", userId);
-            response.sendRedirect("user_home.jsp");
+
+        try {
+//            if(1 == Integer.parseInt(request.getParameter("auth-request"))) {
+            if(false) {
+                register(request, response, session);
+            } else login(request, response, session);
         } catch (Exception e) {
             e.printStackTrace();
+            if(1 == Integer.parseInt(request.getParameter("auth-request"))) {
+                session.setAttribute("registerError", "Something went wrong. Please try again.");
+                response.sendRedirect("register.jsp");
+            } else {
+                session.setAttribute("loginError", "Something went wrong. Please try again.");
+                response.sendRedirect("login.jsp");
+            }
+        }
+    }
+
+    private void login(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
+        AuthDao dao = new AuthDao(QuizDatabase.get());
+        User user = dao.login(
+                new UserLoginDto(
+                        request.getParameter("email"),
+                        request.getParameter("password")
+                )
+        );
+        if(user != null) {
+            session.setAttribute("uid", user.getUid());
+            session.setAttribute("uname", user.getName());
+            session.setAttribute("uemail", user.getEmail());
+            session.setAttribute("loginError", null);
+        } else {
+            session.setAttribute("loginError", "Login Failed.");
+        }
+    }
+
+    private void register(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
+        AuthDao dao = new AuthDao(QuizDatabase.get());
+        User user = dao.register(
+            new UserSignupDto(
+                request.getParameter("name"),
+                request.getParameter("email"),
+                request.getParameter("password")
+            )
+        );
+        if(user != null) {
+            session.setAttribute("uid", user.getUid());
+            session.setAttribute("uname", user.getName());
+            session.setAttribute("uemail", user.getEmail());
+            session.setAttribute("registerError", null);
+            System.out.println("user after registration - "  + user.getUid());
+        } else {
+            response.sendRedirect("register.jsp");
+            session.setAttribute("registerError", "Registration failed. Please try again.");
+            System.out.println("user after registration - NULL");
         }
     }
 

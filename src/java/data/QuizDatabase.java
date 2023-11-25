@@ -21,7 +21,6 @@ public class QuizDatabase {
         try {
             connection = DriverManager.getConnection(DB_URL);
             System.out.println("DB Connection done.");
-            connection.close();
         } catch(Exception e) {
             System.out.println("DB Connection failed.");
         }

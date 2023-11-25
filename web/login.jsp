@@ -72,15 +72,15 @@
     <!-- Login Container -->
     <div class="login-container">
         <h2 class="login-title">Login</h2>
-        <form>
+        <form method="post" action="AuthServlet">
             <div class="form-group">
-                <label for="username">Email</label>
-                <input type="text" id="email" class="form-control" placeholder="Enter your email" required>
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
             </div>
 
             <button type="submit" class="btn btn-primary btn-block login-btn">Login</button>
