@@ -69,15 +69,11 @@
                     <div class="card-body">
                         <h5 class="card-title"><%= quiz.getQuizTitle() %></h5>
                         <p class="card-text">Time Duration: <%= formatDuration(quiz.getTimeLimit())%></p>
-                        <a href="#" class="btn btn-primary">Take Quiz</a>
+                        <a href="takeQuiz.jsp?id=<%=quiz.getQuizId()%>" class="btn btn-primary">Take Quiz</a>
                     </div>
                 </div>
             <% } %>
         </div>
     </div>
-
-    <!-- Bootstrap JS and dependencies (Popper.js and jQuery) -->
-    <!-- Include your script imports here -->
-
 </body>
 </html>

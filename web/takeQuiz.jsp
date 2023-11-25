@@ -2,7 +2,18 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="data.dao.QuizDao" %>
+<%@ page import="data.QuizDatabase" %>
+<%@ page import="data.dto.QuestionDto" %>
 <!DOCTYPE html>
+
+<%
+    String id = request.getParameter("id");
+    System.out.println("id from take quiz - " + id);
+    QuizDao dao = new QuizDao(QuizDatabase.get());
+    ArrayList<QuestionDto> questions = dao.getQuizById(id);
+%>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">

@@ -36,18 +36,19 @@ public class QuizDao {
         }
     }
 
-    public ArrayList<QuestionDto> getQuizById(QuizDetailsDto dto){
+    public ArrayList<QuestionDto> getQuizById(String id){
         try{
             PreparedStatement ps = connection.prepareStatement("select * from question where quiz_id = ?");
-            ps.setString(1, dto.getQuizId());
+            ps.setString(1, id);
 
             ResultSet rs = ps.executeQuery();
             ArrayList<QuestionDto> dtoList = new ArrayList<>();
 
             while(rs.next()){
                 dtoList.add(new QuestionDto(rs.getString("id"),rs.getString("title"),rs.getString("option_1"),rs.getString("option_2"),rs.getString("option_3"),rs.getString("option_4"),rs.getInt("correct"),rs.getString("quiz_id")));
-            }  
+            }
 
+            System.out.println("questions list for quiz - " + id + " with questions - "  +dtoList.size());
             return dtoList;       
             
         } catch (Exception e) {
