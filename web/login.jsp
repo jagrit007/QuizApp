@@ -1,3 +1,4 @@
+<%@ page import="java.util.Objects" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,6 +66,14 @@
         .login-btn:hover {
             background-color: #0056b3;
         }
+
+        .error-message {
+            background-color: #dc3545;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -72,16 +81,26 @@
     <!-- Login Container -->
     <div class="login-container">
         <h2 class="login-title">Login</h2>
-        <form method="post" action="AuthServlet">
+
+        <%-- Display error message if loginError is not null --%>
+        <% if (Objects.nonNull(session.getAttribute("loginError"))) { %>
+            <div class="error-message">
+                <%= session.getAttribute("loginError") %>
+            </div>
+        <% } %>
+
+        <form>
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+                <label for="username">Email</label>
+                <input type="text" name="email" class="form-control" placeholder="Enter your email" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
+                <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
             </div>
+            
+            <input style="display: none;" type="text" name="auth-request" value="0">
 
             <button type="submit" class="btn btn-primary btn-block login-btn">Login</button>
         </form>

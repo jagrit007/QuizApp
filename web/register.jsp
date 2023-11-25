@@ -1,3 +1,4 @@
+<%@ page import="java.util.Objects" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,32 +66,50 @@
         .signup-btn:hover {
             background-color: #0056b3;
         }
+
+        .error-message {
+            background-color: #dc3545;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-
+    <%@ include file = "navbar.jsp" %>
     <!-- Sign Up Container -->
     <div class="signup-container">
         <h2 class="signup-title">Sign Up</h2>
-        <form action="AuthServlet" method="post">
+
+        <%-- Display error message if registerError is not null --%>
+        <% if (Objects.nonNull(session.getAttribute("registerError"))) { %>
+            <div class="error-message">
+                <%= session.getAttribute("registerError") %>
+            </div>
+        <% } %>
+
+        <form>
             <div class="form-group">
                 <label for="fullname">Full Name:</label>
-                <input type="text" name="name" id="fullname" class="form-control" placeholder="Enter your full name" required>
+                <input type="text" name="name" class="form-control" placeholder="Enter your full name" required>
             </div>
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Choose a password" required>
+                <input type="password" name="password" class="form-control" placeholder="Choose a password" required>
             </div>
+            <input style="display: none;" type="text" name="auth-request" value="1">
 
             <button type="submit" class="btn btn-primary btn-block signup-btn">Sign Up</button>
         </form>
     </div>
+        <%--<%@ include file = "footer.jsp" %>--%>
 
     <!-- Bootstrap JS and dependencies (Popper.js and jQuery) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
