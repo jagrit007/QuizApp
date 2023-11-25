@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login - Quiz App</title>
+    <title>Admin Login</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="style.css">
     <style>
         body {
             background-color: #f8f9fa;
@@ -68,19 +67,19 @@
     </style>
 </head>
 <body>
-
+    <%@ include file = "../navbar.jsp" %>
     <!-- Login Container -->
     <div class="login-container">
-        <h2 class="login-title">Login</h2>
+        <h2 class="login-title">Admin Login</h2>
         <form>
             <div class="form-group">
-                <label for="username">Email</label>
-                <input type="text" name="email" class="form-control" placeholder="Enter your email" required>
+                <label for="username">Username:</label>
+                <input type="text" id="username" class="form-control" placeholder="Enter your username" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+                <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
             </div>
 
             <button type="submit" class="btn btn-primary btn-block login-btn">Login</button>
