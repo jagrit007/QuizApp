@@ -26,7 +26,7 @@ public class QuizDao {
             ArrayList<QuizDetailsDto> dtoList = new ArrayList<QuizDetailsDto>();
 
             while(rs.next()){
-                dtoList.add(new QuizDetailsDto(rs.getString("id"),rs.getString("title"),rs.getLong("timeLimit")));
+                dtoList.add(new QuizDetailsDto(rs.getString("id"),rs.getString("title"),rs.getLong("time_limit")));
             }
 
             return dtoList;
