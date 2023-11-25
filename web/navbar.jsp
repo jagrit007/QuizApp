@@ -91,11 +91,14 @@
                 <li class="nav-item">
                     <!-- Include the user dropdown here -->
                     <div class="user-dropdown">
-                        <span>Username</span>
-                        <div class="user-dropdown-content">
-                            <a href="#">Profile</a>
-                            <a href="#">Log Out</a>
-                        </div>
+                        <%-- Check if the user is logged in --%>
+                        <% if (session.getAttribute("username") != null) { %>
+                            <span><%= session.getAttribute("username") %></span>
+                            <div class="user-dropdown-content">
+                                <a href="#">Profile</a>
+                                <a href="#">Log Out</a>
+                            </div>
+                        <% } %>
                     </div>
                 </li>
             </ul>
