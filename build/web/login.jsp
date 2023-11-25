@@ -74,8 +74,8 @@
         <h2 class="login-title">Login</h2>
         <form>
             <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" class="form-control" placeholder="Enter your username" required>
+                <label for="username">Email</label>
+                <input type="text" id="email" class="form-control" placeholder="Enter your email" required>
             </div>
 
             <div class="form-group">

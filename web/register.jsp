@@ -83,10 +83,10 @@
                 <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
             </div>
 
-            <div class="form-group">
+<!--            <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" class="form-control" placeholder="Choose a username" required>
-            </div>
+            </div>-->
 
             <div class="form-group">
                 <label for="password">Password:</label>
