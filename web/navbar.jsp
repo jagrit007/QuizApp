@@ -7,9 +7,15 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Custom CSS -->
-    <!--<link rel="stylesheet" type="text/css" href="style.css">-->
     <link rel="stylesheet" type="text/css" href="navbar_styles.css">
+    <style>
+        .user-dropdown {
+            color: white; /* Set the color to white */
+        }
+    </style>
 </head>
 <body>
 
@@ -35,9 +41,10 @@
                     <div class="user-dropdown">
                         <%-- Check if the user is logged in --%>
                         <% if (session.getAttribute("uname") != null) { %>
-                            <span><%= session.getAttribute("uname") %></span>
+                            <i style="margin-left: 15px;" class="fas fa-user"></i>
+                            <span style="margin-right: 5px"><%= session.getAttribute("uname") %></span>
                             <div class="user-dropdown-content">
-                                <a href="#">Log Out</a>
+                                <a style="background-color: #001f3f;" href="#">Log Out</a>
                             </div>
                         <% } %>
                     </div>
@@ -50,5 +57,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Font Awesome Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </body>
 </html>
