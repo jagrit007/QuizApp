@@ -4,9 +4,17 @@
         <servlet-name>MainScreen</servlet-name>
         <servlet-class>MainScreen</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AuthServlet</servlet-name>
+        <servlet-class>controller.AuthServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainScreen</servlet-name>
         <url-pattern>/main</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthServlet</servlet-name>
+        <url-pattern>/AuthServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
