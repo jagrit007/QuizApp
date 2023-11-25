@@ -8,6 +8,10 @@
         <servlet-name>AuthServlet</servlet-name>
         <servlet-class>controller.AuthServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuizServlet</servlet-name>
+        <servlet-class>controller.QuizServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainScreen</servlet-name>
         <url-pattern>/main</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>AuthServlet</servlet-name>
         <url-pattern>/AuthServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizServlet</servlet-name>
+        <url-pattern>/QuizServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

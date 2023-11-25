@@ -28,8 +28,7 @@ public class AuthServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try {
-//            if(1 == Integer.parseInt(request.getParameter("auth-request"))) {
-            if(false) {
+            if(1 == Integer.parseInt(request.getParameter("auth-request"))) {
                 register(request, response, session);
             } else login(request, response, session);
         } catch (Exception e) {
@@ -57,8 +56,12 @@ public class AuthServlet extends HttpServlet {
             session.setAttribute("uname", user.getName());
             session.setAttribute("uemail", user.getEmail());
             session.setAttribute("loginError", null);
+            System.out.println("user after login - " + user.getUid());
+            response.sendRedirect("QuizServlet");
         } else {
             session.setAttribute("loginError", "Login Failed.");
+            response.sendRedirect("login.jsp");
+            System.out.println("user after login - NULL");
         }
     }
 
@@ -76,10 +79,11 @@ public class AuthServlet extends HttpServlet {
             session.setAttribute("uname", user.getName());
             session.setAttribute("uemail", user.getEmail());
             session.setAttribute("registerError", null);
+            response.sendRedirect("QuizServlet");
             System.out.println("user after registration - "  + user.getUid());
         } else {
-            response.sendRedirect("register.jsp");
             session.setAttribute("registerError", "Registration failed. Please try again.");
+            response.sendRedirect("register.jsp");
             System.out.println("user after registration - NULL");
         }
     }

@@ -1,5 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
+<%@ page import="data.QuizDatabase" %>
+<%@ page import="data.dto.QuizDetailsDto" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -46,6 +48,14 @@
     <!-- Navigation Bar (if not included in each page) -->
     <%@ include file="navbar.jsp" %>
 
+    <%! public String formatDuration(long seconds) {
+        long minutes = seconds / 60;
+        seconds = seconds % 60;
+
+        return String.format("%d minutes and %d seconds", minutes, seconds);
+        }
+    %>
+
     <!-- Page Content -->
     <div class="container mt-4">
         <h2>Available Quizzes</h2>
@@ -53,17 +63,12 @@
         <!-- Example: List of Quizzes -->
         <div class="card-deck mt-4">
             <!-- Replace this with dynamic content from the database -->
-            <% List<String> quizTitles = new ArrayList<>();
-               quizTitles.add("Quiz 1");
-               quizTitles.add("Quiz 2");
-               quizTitles.add("Quiz 3");
-
-               for (String quizTitle : quizTitles) { %>
+            <% ArrayList<QuizDetailsDto> quizzes = (ArrayList<QuizDetailsDto>) session.getAttribute("quiz_list");
+               for (QuizDetailsDto quiz : quizzes) { %>
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"><%= quizTitle %></h5>
-                        <p class="card-text">Time Duration: 30 minutes</p>
-                        <p class="card-text">Number of Questions: 10</p>
+                        <h5 class="card-title"><%= quiz.getQuizTitle() %></h5>
+                        <p class="card-text">Time Duration: <%= formatDuration(quiz.getTimeLimit())%></p>
                         <a href="#" class="btn btn-primary">Take Quiz</a>
                     </div>
                 </div>

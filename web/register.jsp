@@ -103,7 +103,7 @@
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" class="form-control" placeholder="Choose a password" required>
-            </div>
+            </div>
             <input style="display: none;" type="text" name="auth-request" value="1">
 
             <button type="submit" class="btn btn-primary btn-block signup-btn">Sign Up</button>

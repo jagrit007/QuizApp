@@ -98,7 +98,7 @@
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
-            </div>
+            </div>
             
             <input style="display: none;" type="text" name="auth-request" value="0">
 
